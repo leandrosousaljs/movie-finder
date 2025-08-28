@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDebounce } from 'react-use';
 import { Trans, useTranslation } from 'react-i18next';
-import ReactCountryFlag from 'react-country-flag';
 
 import Search from './components/Search';
 import Spinner from './components/Spinner';
