@@ -1,0 +1,8 @@
+{
+  "title": "Find <highlight>Movies</highlight> You'll Enjoy Without the Hassle",
+  "highlight": "Movies",
+  "search_placeholder": "Search through thousands of movies",
+  "trending": "Trending Movies",
+  "all_movies": "All Movies",
+  "error": "Error fetching movies. Please try again later."
+}

@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 const Search = ({ searchTerm, setSearchTerm }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="search">
       <div>
@@ -6,7 +10,7 @@ const Search = ({ searchTerm, setSearchTerm }) => {
 
         <input
           type="text"
-          placeholder="Search through thousands of movies"
+          placeholder={t('search_placeholder')}
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />

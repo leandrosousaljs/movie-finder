@@ -39,6 +39,10 @@
     @apply min-h-screen relative bg-primary;
   }
 
+  select {
+  @apply px-3 py-1 rounded-lg bg-light-100/10 text-white hover:bg-light-100/20 transition cursor-pointer;
+  }
+
   header {
     @apply sm:mt-10 mt-5;
   }

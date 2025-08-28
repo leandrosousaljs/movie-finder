@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDebounce } from 'react-use';
+import { Trans, useTranslation } from 'react-i18next';
+import ReactCountryFlag from 'react-country-flag';
 
 import Search from './components/Search';
 import Spinner from './components/Spinner';
@@ -25,6 +27,13 @@ const App = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+  // i18n location
+  const { t, i18n } = useTranslation();
+  const toggleLanguage = e => {
+    const newLang = e.target.value;
+    i18n.changeLanguage(newLang);
+  };
 
   // Debounce the search term to avoid excessive API calls by waiting for the user to stop typing for 500ms
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
@@ -59,7 +68,7 @@ const App = () => {
       }
     } catch (e) {
       console.error(`Error fetching movies:, ${e}`);
-      setErrorMessage('Error fetching movies. Please try again later.');
+      setErrorMessage(t('error'));
     } finally {
       setIsLoading(false);
     }
@@ -86,11 +95,26 @@ const App = () => {
   return (
     <main>
       <div className="pattern" />
+      <div className="flex justify-end p-4 relative z-20">
+        <select onChange={toggleLanguage} value={i18n.language}>
+          <option className="text-black" value="en-US">
+            English
+          </option>
+          <option className="text-black" value="pt-BR">
+            Português
+          </option>
+          <option className="text-black" value="es-ES">
+            Español
+          </option>
+        </select>
+      </div>
       <div className="wrapper">
         <header>
           <img src="./hero.png" alt="Hero Banner" />
           <h1>
-            Find <span className="text-gradient">Movies</span> You'll Enjoy Without the Hassle
+            <Trans i18nKey="title" components={{ highlight: <span className="text-gradient" /> }}>
+              Find <span className="text-gradient">Movies</span> You'll Enjoy Without the Hassle
+            </Trans>
           </h1>
 
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -98,7 +122,7 @@ const App = () => {
 
         {trendingMovies.length > 0 && (
           <section className="trending">
-            <h2>Treding Movies</h2>
+            <h2>{t('trending')}</h2>
 
             <ul>
               {trendingMovies.map((movie, index) => (
@@ -112,7 +136,7 @@ const App = () => {
         )}
 
         <section className="all-movies">
-          <h2>All movies</h2>
+          <h2>{t('all_movies')}</h2>
 
           {isLoading ? (
             <Spinner />
@@ -127,7 +151,7 @@ const App = () => {
           )}
         </section>
         <footer className="mt-10 justify-center flex items-center">
-          <img className='h-5 w-auto' src="./blue_long_tmdb.svg" alt="tmdb logo" />
+          <img className="h-5 w-auto" src="./blue_long_tmdb.svg" alt="tmdb logo" />
         </footer>
       </div>
     </main>
